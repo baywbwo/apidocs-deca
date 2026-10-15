@@ -1,0 +1,48 @@
+name: Deploy DECA API Docs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deca-api-docs-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DECA_VPS_SSH_KEY }}
+        run: |
+          if [ -z "$SSH_PRIVATE_KEY" ]; then
+            echo "::error::Missing repository secret DECA_VPS_SSH_KEY"
+            exit 1
+          fi
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' '[103.159.199.42]:8123 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKLx1+ybDcIQ8QO5OPKIfWr/RsTmXvumfDLUbPXdnf0e' > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Upload site files
+        run: |
+          scp -P 8123 -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes \
+            index.html styles.css app.js README.md Dockerfile docker-compose.yml \
+            vobiz@103.159.199.42:/home/vobiz/apps/apidocs-deca/
+          scp -r -P 8123 -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes \
+            assets vobiz@103.159.199.42:/home/vobiz/apps/apidocs-deca/
+
+      - name: Rebuild and restart site
+        run: |
+          ssh -p 8123 -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes \
+            vobiz@103.159.199.42 \
+            'cd /home/vobiz/apps/apidocs-deca && docker compose up -d --build'
