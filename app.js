@@ -137,6 +137,9 @@ const referencePages = {
   headers: { title:'Request Headers', subtitle:'Header SNAP yang digunakan pada transaksi DECA.', body:`<p>Gunakan header berikut pada endpoint SNAP. Format timestamp dan signature mengikuti aturan kontrak DECA.</p>${fieldTable(snapHeaders,'Header','Keterangan')}` },
   externalCheckout: { title:'External Checkout', subtitle:'Referensi checkout pembayaran DECA menggunakan protokol Non-SNAP.', body:`<p>Kontrak ini mencakup pembuatan checkout order, pencarian order/payment, dan callback. Beberapa endpoint lookup pada dokumentasi lama hanya mencantumkan status HTTP; response body akan ditambahkan setelah tersedia.</p><div class="link-list">${externalRow('Create Checkout Order','POST','/nonSnapReference/generated/post-ec-v-1-copg-order','Membuat order checkout.')} ${externalRow('Get Checkout Order','GET','/nonSnapReference/generated/get-ec-v-1-copg-order-reference','Mengambil informasi checkout order.')} ${externalRow('Get Payment By ID','GET','/nonSnapReference/generated/get-ec-v-1-payment-id','Mengambil pembayaran berdasarkan ID.')} ${externalRow('Get Payment By Reference ID','GET','/nonSnapReference/generated/get-ec-v-1-payment-reference-id','Mengambil pembayaran berdasarkan reference.')} ${externalRow('Payment Status Changed Webhook','POST','/nonSnapReference/generated/post-webhook-ec-payment-status','Notifikasi perubahan status pembayaran.')} ${externalRow('External Checkout Payment Webhook','POST','/nonSnapReference/generated/post-webhook-ec-payment','Notifikasi pembayaran External Checkout.')}</div><div class="content-section"><h2>Authentication & signature</h2><p>Gunakan OAuth2 client credentials. Signature request menggunakan HMAC-SHA256 atas komponen yang ditentukan pada panduan Non-SNAP.</p>${linkRow('OAuth2 Access Token','reference/post-oauth-2-token')} ${linkRow('Panduan signature Non-SNAP','reference/nonsnapSignature')}</div>` }
 };
+referencePages.home.subtitle = 'Pilih SNAP atau Non-SNAP untuk membuka dokumentasi integrasi yang sesuai.';
+referencePages.snapAuth = { title:'SNAP authentication', subtitle:'Autentikasi dan header untuk endpoint berprotokol SNAP.', body:`<p>Gunakan B2B Access Token untuk memanggil endpoint SNAP. Sertakan header dan signature SNAP sesuai kontrak DECA.</p>${endpointList([endpointGroups.auth.items[0]])}<div class="content-section"><h2>Request headers SNAP</h2><p>Header wajib mengikuti spesifikasi endpoint dan mengikutsertakan timestamp serta signature.</p>${linkRow('Lihat daftar request headers','reference/headers')}</div><div class="content-section"><h2>Endpoint SNAP</h2><div class="link-list">${row('QRIS','Generate, inquiry, refund, cancel, decode, dan callback.','reference/qris')} ${row('Virtual Account','Create VA, inquiry, delete, dan payment notification.','reference/va')} ${row('Payouts','Bank transfer, e-money top up, dan batch disbursement.','reference/bankTransfer')}</div></div>` };
+referencePages.nonsnapAuth = { title:'Non-SNAP authentication', subtitle:'OAuth2 dan signature untuk integrasi External Checkout.', body:`<p>External Checkout memakai OAuth2 client credentials untuk memperoleh bearer token. Setiap request yang dilindungi juga harus ditandatangani dengan skema Non-SNAP.</p>${endpointList([endpointGroups.auth.items[1]])}<div class="content-section"><h2>Request signature</h2><p>Signature dihitung dengan HMAC-SHA256 menggunakan komponen request dan signing key yang sesuai.</p>${linkRow('Baca panduan Non-SNAP signature','reference/nonsnapSignature')}</div><div class="content-section"><h2>Produk Non-SNAP</h2>${linkRow('Buka API Reference External Checkout','reference/externalCheckout')}</div>` };
 const endpointTitles = {};
 const endpointOwners = {};
 for (const [groupId, group] of Object.entries(endpointGroups)) {
@@ -172,12 +175,31 @@ const docNav = [
   ['INTEGRATION & SUPPORT', [['authentication-guide','Authentication & security'],['webhooks','Webhooks & notifications'],['testing','Testing & go-live'],['faq','FAQ & troubleshooting']]]
 ];
 const referenceNav = [
-  ['GET STARTED', [['home','API Reference overview'],['auth','Authentication'],['headers','SNAP request headers'],['nonsnapSignature','Non-SNAP signature']]],
-  ['ACCEPT PAYMENTS', [['qris','QRIS'],['va','Virtual Account'],['externalCheckout','External Checkout']]],
-  ['PAYOUTS', [['bankTransfer','Bank Transfer'],['ewallet','E-money Top Up'],['bulkCashIn','Batch disbursement']]],
-  ['ACCOUNT & REPORTS', [['account','Balance & Bank Statement']]],
+  ['GET STARTED', [['home','Pilih protokol']]],
+  ['SNAP', [['snapAuth','Authentication'],['headers','Request headers'],['qris','QRIS'],['va','Virtual Account'],['bankTransfer','Bank Transfer'],['ewallet','E-money Top Up'],['bulkCashIn','Batch disbursement'],['account','Balance & Bank Statement']]],
+  ['NON-SNAP', [['nonsnapAuth','Authentication'],['nonsnapSignature','Signature'],['externalCheckout','External Checkout']]],
   ['RESPONSES', [['responseCodes','Response codes & errors']]]
 ];
+
+function referenceHome() {
+  return `<p>Pilih protokol yang sesuai dengan produk DECA yang diaktifkan untuk akun merchant. Skema autentikasi, signature, dan format request tiap protokol berbeda.</p>
+    <div class="protocol-picker" aria-label="Pilih protokol API">
+      <a class="protocol-card snap" href="#reference/snapAuth" data-route="reference/snapAuth">
+        <span class="protocol-card-kicker">PROTOKOL</span><strong class="protocol-card-title">SNAP</strong>
+        <p>Standar SNAP untuk pembayaran, transfer, dan operasional akun.</p>
+        <span class="protocol-card-products">QRIS · Virtual Account · Payouts · Account</span>
+        <span class="protocol-card-action">Lihat dokumentasi SNAP <b>→</b></span>
+      </a>
+      <a class="protocol-card nonsnap" href="#reference/nonsnapAuth" data-route="reference/nonsnapAuth">
+        <span class="protocol-card-kicker">PROTOKOL</span><strong class="protocol-card-title">Non-SNAP</strong>
+        <p>Integrasi External Checkout dengan OAuth2 dan signature Non-SNAP.</p>
+        <span class="protocol-card-products">External Checkout · Order · Payment lookup · Webhook</span>
+        <span class="protocol-card-action">Lihat dokumentasi Non-SNAP <b>→</b></span>
+      </a>
+    </div>
+    <div class="callout"><strong>Belum yakin memilih?</strong><p>Konfirmasi protokol yang aktif pada akun merchant kepada tim DECA sebelum mulai integrasi.</p><a class="text-link" href="mailto:partnership@deca.co.id">Hubungi partnership ↗</a></div>
+    <div class="content-section"><div class="section-label">REFERENSI UMUM</div><h2>Response codes & errors</h2><p>Arti status HTTP dan kode response DECA dijelaskan terpisah dari katalog endpoint.</p>${linkRow('Buka response codes','reference/responseCodes')}</div>`;
+}
 
 function routeHref(route) { return `#${route}`; }
 function row(title, description, route, badge = '') {
@@ -327,7 +349,7 @@ function render(mode, page) {
     const group = endpointGroups[item.group];
     content = `${endpointList(group.items)}<div class="callout"><strong>Detail endpoint</strong><p>Buka endpoint untuk melihat request, response code, dan contoh payload yang tersedia.</p></div>`;
   } else {
-    content = item.body;
+    content = mode === 'reference' && page === 'home' ? referenceHome() : item.body;
   }
   const groupInfo = item.group ? endpointGroups[item.group] : null;
   const groups = mode === 'reference' ? referenceNav : docNav;
