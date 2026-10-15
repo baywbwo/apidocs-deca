@@ -20,8 +20,8 @@ body { margin: 0; background: var(--canvas); color: var(--ink); font: 14px/1.65 
 a { color: inherit; }
 button, input { font: inherit; }
 .topbar { position: sticky; z-index: 20; top: 0; display: flex; align-items: center; height: 70px; padding: 0 36px; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.97); }
-.brand { display: flex; flex: 0 0 240px; align-items: center; gap: 12px; text-decoration: none; }
-.brand img { width: 88px; height: 39px; object-fit: contain; object-position: left center; }
+.brand { display: flex; flex: 0 0 235px; align-items: center; gap: 12px; text-decoration: none; }
+.brand img { width: 150px; height: 48px; object-fit: cover; object-position: center; }
 .brand-divider { height: 23px; border-left: 1px solid var(--line); }
 .brand-label { color: #6e7e76; font-size: 10px; font-weight: 700; letter-spacing: .13em; }
 .top-tabs { display: flex; align-self: stretch; gap: 26px; }
@@ -184,13 +184,14 @@ h1 { margin: 10px 0 7px; font-size: 35px; font-weight: 700; line-height: 1.2; }
 @media (max-width: 1120px) {
   .shell { grid-template-columns: 232px minmax(0, 780px); max-width: 1050px; padding-right: 24px; }
   .right-rail { display: none; }
-  .brand { flex-basis: 205px; }
+  .brand { flex: 0 0 150px; gap: 0; }
+  .brand img { width: 130px; height: 42px; }
+  .brand-divider, .brand-label { display: none; }
 }
 @media (max-width: 760px) {
   .topbar { height: 60px; padding: 0 15px; }
-  .brand { flex: 1 1 auto; gap: 8px; }
-  .brand img { width: 72px; height: 34px; }
-  .brand-label { font-size: 8px; }
+  .brand { flex: 0 0 auto; gap: 0; }
+  .brand img { width: 116px; height: 38px; }
   .mobile-menu { display: block; order: -1; margin-right: 9px; }
   .top-tabs { gap: 13px; margin-left: 6px; }
   .top-tabs a { font-size: 11px; }
