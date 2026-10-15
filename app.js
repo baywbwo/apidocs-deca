@@ -367,8 +367,6 @@ document.getElementById('searchOpen').onclick = openSearch;
 document.getElementById('searchOpenSide').onclick = openSearch;
 document.getElementById('searchClose').onclick = closeSearch;
 document.getElementById('searchInput').oninput = event => showSearch(event.target.value);
-document.getElementById('themeToggle').onclick = () => { document.body.classList.toggle('dark'); localStorage.setItem('deca-doc-theme', document.body.classList.contains('dark') ? 'dark' : 'light'); };
-if (localStorage.getItem('deca-doc-theme') === 'dark') document.body.classList.add('dark');
 document.getElementById('mobileMenu').onclick = () => document.getElementById('sidebar').classList.toggle('open');
 document.addEventListener('keydown', event => {
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); openSearch(); }
