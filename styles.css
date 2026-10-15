@@ -10,8 +10,8 @@
   --green-wash: #edf7f0;
   --blue: #1477c9;
   --code: #142820;
-  --sans: 'DM Sans', Arial, sans-serif;
-  --display: Manrope, 'DM Sans', Arial, sans-serif;
+  --sans: Inter, Arial, sans-serif;
+  --display: Inter, Arial, sans-serif;
   --mono: 'DM Mono', monospace;
 }
 * { box-sizing: border-box; }
@@ -57,7 +57,7 @@ kbd { padding: 1px 4px; border: 1px solid var(--line); border-radius: 3px; backg
 .breadcrumbs span { padding: 0 5px; color: #a9b3ae; }
 .eyebrow { color: #07843a; font-size: 9px; font-weight: 700; letter-spacing: .12em; }
 .eyebrow-divider { padding: 0 4px; color: #94a39b; }
-h1, h2, h3 { color: var(--ink); font-family: var(--display); letter-spacing: -.035em; }
+h1, h2, h3 { color: var(--ink); font-family: var(--display); letter-spacing: -.02em; }
 h1 { margin: 10px 0 7px; font-size: 35px; font-weight: 700; line-height: 1.2; }
 .page-subtitle { max-width: 680px; margin: 0; color: var(--muted); font-size: 14px; }
 .page-content { color: #52665c; font-size: 13px; }
