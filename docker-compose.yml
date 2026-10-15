@@ -1,0 +1,7 @@
+services:
+  apidocs-deca:
+    build: .
+    container_name: apidocs-deca
+    restart: unless-stopped
+    ports:
+      - "8091:80"

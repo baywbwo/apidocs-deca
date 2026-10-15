@@ -1,15 +1,18 @@
 # DECA Developer Docs
 
-A lightweight, responsive documentation experience for DECA SNAP API. The UI uses DECA green and blue, with searchable navigation, dark mode, endpoint group pages, and a developer-first onboarding path.
+Static documentation site for DECA with separate **Docs** and **API Reference** areas.
 
-## Source of truth
+## Information architecture
 
-Endpoint paths and service codes in `app.js` are taken from the currently published DECA SNAP docs. Detailed request/response schemas remain linked to the corresponding published endpoint pages so this refresh does not invent API contracts. Before replacing the live docs, migrate the endpoint specifications into this project and verify them with DECA engineering.
+- **Docs** explains product flows: Cash In, Cash Out, Account & Reports, setup, security, callbacks, testing, and go-live.
+- **API Reference** groups existing endpoint specifications by the same business flows while retaining the SNAP or Non-SNAP protocol label.
+- Endpoint links open the currently published DECA contract, so this site does not recreate or alter request/response schemas.
+- Topics without a published DECA guide or API specification are labeled **Coming soon**.
 
 ## Preview
 
-Open `index.html` in a browser or serve this directory with any static file server. No build step is required.
+Open `index.html` in a browser. The site is static and requires no build step.
 
 ## Deployment
 
-This repository does not currently include the existing `api.deca.co.id` deployment configuration. Configure the hosting target and base path before publishing this refreshed UI to the live docs domain.
+The Docker image serves the static files with Nginx. `docker-compose.yml` publishes the container on port `8091`.

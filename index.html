@@ -3,69 +3,49 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f6f9f7">
-  <meta name="description" content="Panduan integrasi dan referensi API DECA untuk partner dan developer.">
-  <title>DECA Developer — Dokumentasi API</title>
+  <meta name="theme-color" content="#f7faf8">
+  <meta name="description" content="Panduan integrasi dan referensi API DECA untuk developer.">
+  <title>DECA Developer</title>
   <link rel="icon" href="assets/deca-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#home" aria-label="DECA Developer home"><img src="assets/deca-logo.png" alt="DECA"><span class="brand-divider"></span><span class="brand-label">DEVELOPER</span></a>
+    <a class="brand" href="#docs/home" aria-label="DECA Developer home">
+      <img src="assets/deca-logo.png" alt="DECA">
+      <span class="brand-divider"></span><span class="brand-label">DEVELOPER</span>
+    </a>
     <button class="mobile-menu" id="mobileMenu" aria-label="Buka navigasi">☰</button>
+    <nav class="top-tabs" aria-label="Area dokumentasi">
+      <a href="#docs/home" id="docsTab">Docs</a>
+      <a href="#reference/home" id="referenceTab">API Reference</a>
+    </nav>
     <div class="topbar-right">
-      <span class="version"><i></i> SNAP API</span>
       <button class="search-trigger" id="searchOpen"><span class="search-icon">⌕</span><span>Cari dokumentasi</span><kbd>⌘ K</kbd></button>
-      <a class="portal-link" href="https://biz.deca.co.id/" target="_blank" rel="noreferrer">Portal merchant <span>↗</span></a>
+      <a class="portal-link" href="https://biz.dev.deca.co.id" target="_blank" rel="noreferrer">Login <span>↗</span></a>
       <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">◐</button>
     </div>
   </header>
   <div class="shell">
     <aside class="sidebar" id="sidebar">
       <div class="side-search"><span>⌕</span><button id="searchOpenSide">Cari halaman...</button><kbd>/</kbd></div>
-      <nav aria-label="Navigasi dokumentasi">
-        <div class="nav-group">
-          <div class="nav-heading">MULAI DI SINI</div>
-          <a class="nav-link active" data-page="home" href="#home"><span class="nav-dot"></span>Selamat datang</a>
-          <a class="nav-link" data-page="overview" href="#overview"><span class="nav-dot"></span>Alur integrasi</a>
-          <a class="nav-link" data-page="environments" href="#environments"><span class="nav-dot"></span>Environment</a>
-        </div>
-        <div class="nav-group">
-          <div class="nav-heading">SNAP API <span class="nav-badge">BI</span></div>
-          <a class="nav-link" data-page="auth" href="#auth"><span class="nav-dot"></span>Autentikasi & signature</a>
-          <a class="nav-link" data-page="headers" href="#headers"><span class="nav-dot"></span>Request headers</a>
-          <button class="nav-collapsible" data-group="payments"><span class="chev">⌄</span>Payment</button>
-          <div class="nav-nested" data-nested="payments">
-            <a class="nav-link" data-page="qris" href="#qris"><span class="method post">POST</span>QRIS</a>
-            <a class="nav-link" data-page="va" href="#va"><span class="method post">POST</span>Virtual Account</a>
-          </div>
-          <button class="nav-collapsible" data-group="payouts"><span class="chev">⌄</span>Pay out</button>
-          <div class="nav-nested" data-nested="payouts">
-            <a class="nav-link" data-page="balance" href="#balance"><span class="method post">POST</span>Saldo & rekening koran</a>
-            <a class="nav-link" data-page="disbursement" href="#disbursement"><span class="method post">POST</span>Disbursement</a>
-          </div>
-        </div>
-        <div class="nav-group">
-          <div class="nav-heading">PANDUAN</div>
-          <a class="nav-link" data-page="webhooks" href="#webhooks"><span class="nav-dot"></span>Callback & notifikasi</a>
-          <a class="nav-link" data-page="testing" href="#testing"><span class="nav-dot"></span>Testing & go-live</a>
-          <a class="nav-link" data-page="nonsnap" href="#nonsnap"><span class="nav-dot"></span>Non-SNAP & checkout</a>
-        </div>
-      </nav>
-      <div class="sidebar-bottom"><span class="status-dot"></span>Semua sistem beroperasi<a href="mailto:partnership@deca.co.id">Butuh bantuan? <span>↗</span></a></div>
+      <nav id="sideNav" aria-label="Navigasi dokumentasi"></nav>
+      <div class="sidebar-bottom"><span class="status-dot"></span>DECA Developer Docs<a href="mailto:partnership@deca.co.id">Butuh bantuan? <span>↗</span></a></div>
     </aside>
     <main id="mainContent" tabindex="-1"></main>
-    <aside class="right-rail" id="rightRail">
-      <div class="rail-title">DI HALAMAN INI</div>
-      <a href="#why-deca">Ringkasan</a><a href="#quickstart">Mulai integrasi</a><a href="#choose-path">Pilih alur</a>
-      <div class="rail-card"><div class="rail-card-icon">↗</div><strong>Butuh akses API?</strong><p>Hubungi tim DECA untuk aktivasi merchant dan kredensial sandbox.</p><a href="mailto:partnership@deca.co.id">Hubungi partnership <span>→</span></a></div>
-      <div class="feedback"><span>Halaman ini membantu?</span><button aria-label="Ya">👍</button><button aria-label="Tidak">👎</button></div>
-    </aside>
+    <aside class="right-rail" id="rightRail"></aside>
   </div>
-  <div class="search-modal" id="searchModal" aria-hidden="true"><div class="search-backdrop" id="searchClose"></div><div class="search-box" role="dialog" aria-modal="true" aria-label="Cari dokumentasi"><div class="search-input-row"><span>⌕</span><input id="searchInput" placeholder="Cari autentikasi, QRIS, webhook..." autocomplete="off"><kbd>ESC</kbd></div><div id="searchResults" class="search-results"></div><div class="search-foot">Pilih hasil dengan <kbd>↑</kbd> <kbd>↓</kbd>, lalu <kbd>enter</kbd></div></div></div>
+  <div class="search-modal" id="searchModal" aria-hidden="true">
+    <div class="search-backdrop" id="searchClose"></div>
+    <div class="search-box" role="dialog" aria-modal="true" aria-label="Cari dokumentasi">
+      <div class="search-input-row"><span>⌕</span><input id="searchInput" placeholder="Cari Cash In, payout, QRIS..." autocomplete="off"><kbd>ESC</kbd></div>
+      <div id="searchResults" class="search-results"></div>
+      <div class="search-foot">Pilih hasil dengan <kbd>↑</kbd> <kbd>↓</kbd>, lalu <kbd>enter</kbd></div>
+    </div>
+  </div>
   <script src="app.js"></script>
 </body>
 </html>
